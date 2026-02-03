@@ -44,34 +44,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
-      child: PopScope(
-        canPop: false,
-        child: Scaffold(
-          key: scaffoldKey,
+      child: Scaffold(
+        key: scaffoldKey,
 
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
 
-          appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).primary,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primary,
 
-            automaticallyImplyLeading: false,
+          automaticallyImplyLeading: false,
 
-            title: Text(
-              'Flutterflow App',
+          title: Text(
+            'Flutterflow App',
 
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                font: GoogleFonts.interTight(
-                  fontWeight: FlutterFlowTheme.of(
-                    context,
-                  ).headlineMedium.fontWeight,
-                  fontStyle: FlutterFlowTheme.of(
-                    context,
-                  ).headlineMedium.fontStyle,
-                ),
-
-                color: Colors.white,
-                fontSize: 22.0,
-                letterSpacing: 0.0,
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+              font: GoogleFonts.interTight(
                 fontWeight: FlutterFlowTheme.of(
                   context,
                 ).headlineMedium.fontWeight,
@@ -79,68 +66,76 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   context,
                 ).headlineMedium.fontStyle,
               ),
+
+              color: Colors.white,
+              fontSize: 22.0,
+              letterSpacing: 0.0,
+              fontWeight: FlutterFlowTheme.of(
+                context,
+              ).headlineMedium.fontWeight,
+              fontStyle: FlutterFlowTheme.of(context).headlineMedium.fontStyle,
             ),
-            actions: [],
-
-            centerTitle: false,
-
-            elevation: 2.0,
           ),
-          body: SafeArea(
-            top: true,
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(15.0, 25.0, 15.0, 0.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
+          actions: [],
 
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
+          centerTitle: false,
 
-                        children: [
-                          wrapWithModel(
-                            model: _model.microAppCardModel1,
+          elevation: 2.0,
+        ),
+        body: SafeArea(
+          top: true,
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(15.0, 25.0, 15.0, 0.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+
+                      children: [
+                        wrapWithModel(
+                          model: _model.microAppCardModel1,
+                          updateCallback: () => safeSetState(() {}),
+
+                          child: MicroAppCardWidget(
+                            key: ValueKey('Asd'),
+                            cardFlutterTittle: 'Noticia #1',
+                            cardFlutterDescription:
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat nulla eu fermentum ornare. Aliquam interdum nunc eu egestas efficitur.',
+                          ),
+                        ),
+                        Expanded(
+                          child: wrapWithModel(
+                            model: _model.microAppCardModel2,
                             updateCallback: () => safeSetState(() {}),
 
                             child: MicroAppCardWidget(
-                              key: ValueKey('Asd'),
-                              cardFlutterTittle: 'Noticia #1',
+                              cardFlutterTittle: 'Noticia #2',
                               cardFlutterDescription:
                                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat nulla eu fermentum ornare. Aliquam interdum nunc eu egestas efficitur.',
                             ),
                           ),
-                          Expanded(
-                            child: wrapWithModel(
-                              model: _model.microAppCardModel2,
-                              updateCallback: () => safeSetState(() {}),
+                        ),
+                        Expanded(
+                          child: wrapWithModel(
+                            model: _model.microAppCardModel3,
+                            updateCallback: () => safeSetState(() {}),
 
-                              child: MicroAppCardWidget(
-                                cardFlutterTittle: 'Noticia #2',
-                                cardFlutterDescription:
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat nulla eu fermentum ornare. Aliquam interdum nunc eu egestas efficitur.',
-                              ),
+                            child: MicroAppCardWidget(
+                              cardFlutterTittle: 'Noticia #3',
+                              cardFlutterDescription:
+                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat nulla eu fermentum ornare. Aliquam interdum nunc eu egestas efficitur.',
                             ),
                           ),
-                          Expanded(
-                            child: wrapWithModel(
-                              model: _model.microAppCardModel3,
-                              updateCallback: () => safeSetState(() {}),
-
-                              child: MicroAppCardWidget(
-                                cardFlutterTittle: 'Noticia #3',
-                                cardFlutterDescription:
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat nulla eu fermentum ornare. Aliquam interdum nunc eu egestas efficitur.',
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
