@@ -239,6 +239,7 @@ class _MiniAppHomeWidgetState extends State<MiniAppHomeWidget> {
                                         width: 200.0,
                                         height: 200.0,
                                         fit: BoxFit.cover,
+                                        package: 'figma',
                                       ),
                                     ),
                                   ),
