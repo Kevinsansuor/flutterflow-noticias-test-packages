@@ -36,31 +36,36 @@ class AppStateNotifier extends ChangeNotifier {
 }
 
 GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
-  initialLocation: '/',
-  debugLogDiagnostics: true,
-  refreshListenable: appStateNotifier,
-  navigatorKey: appNavigatorKey,
-  errorBuilder: (context, state) => HomePageWidget(),
-
-  routes: [
-    FFRoute(
-      name: '_initialize',
-      path: '/',
-      builder: (context, _) => HomePageWidget(),
-    ),
-    FFRoute(
-      name: HomePageWidget.routeName,
-      path: HomePageWidget.routePath,
-
-      builder: (context, params) => HomePageWidget(),
-    ),
-  ].map((r) => r.toRoute(appStateNotifier)).toList(),
-);
+      initialLocation: '/',
+      debugLogDiagnostics: true,
+      refreshListenable: appStateNotifier,
+      navigatorKey: appNavigatorKey,
+      errorBuilder: (context, state) => HomePageWidget(),
+      routes: [
+        FFRoute(
+          name: '_initialize',
+          path: '/',
+          builder: (context, _) => HomePageWidget(),
+        ),
+        FFRoute(
+          name: HomePageWidget.routeName,
+          path: HomePageWidget.routePath,
+          builder: (context, params) => HomePageWidget(),
+        ),
+        FFRoute(
+          name: AskOraclePageWidget.routeName,
+          path: AskOraclePageWidget.routePath,
+          builder: (context, params) => AskOraclePageWidget(),
+        )
+      ].map((r) => r.toRoute(appStateNotifier)).toList(),
+    );
 
 extension NavParamExtensions on Map<String, String?> {
   Map<String, String> get withoutNulls => Map.fromEntries(
-    entries.where((e) => e.value != null).map((e) => MapEntry(e.key, e.value!)),
-  );
+        entries
+            .where((e) => e.value != null)
+            .map((e) => MapEntry(e.key, e.value!)),
+      );
 }
 
 extension NavigationExtensions on BuildContext {
@@ -105,19 +110,24 @@ class FFParameters {
       asyncParams.containsKey(param.key) && param.value is String;
   bool get hasFutures => state.allParams.entries.any(isAsyncParam);
   Future<bool> completeFutures() => Future.wait(
-    state.allParams.entries.where(isAsyncParam).map((param) async {
-      final doc = await asyncParams[param.key]!(
-        param.value,
-      ).onError((_, __) => null);
-      if (doc != null) {
-        futureParamValues[param.key] = doc;
-        return true;
-      }
-      return false;
-    }),
-  ).onError((_, __) => [false]).then((v) => v.every((e) => e));
+        state.allParams.entries.where(isAsyncParam).map(
+          (param) async {
+            final doc = await asyncParams[param.key]!(param.value)
+                .onError((_, __) => null);
+            if (doc != null) {
+              futureParamValues[param.key] = doc;
+              return true;
+            }
+            return false;
+          },
+        ),
+      ).onError((_, __) => [false]).then((v) => v.every((e) => e));
 
-  dynamic getParam<T>(String paramName, ParamType type, {bool isList = false}) {
+  dynamic getParam<T>(
+    String paramName,
+    ParamType type, {
+    bool isList = false,
+  }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
     }
@@ -130,7 +140,11 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList);
+    return deserializeParam<T>(
+      param,
+      type,
+      isList,
+    );
   }
 }
 
@@ -152,45 +166,44 @@ class FFRoute {
   final List<GoRoute> routes;
 
   GoRoute toRoute(AppStateNotifier appStateNotifier) => GoRoute(
-    name: name,
-    path: path,
+        name: name,
+        path: path,
+        pageBuilder: (context, state) {
+          fixStatusBarOniOS16AndBelow(context);
+          final ffParams = FFParameters(state, asyncParams);
+          final page = ffParams.hasFutures
+              ? FutureBuilder(
+                  future: ffParams.completeFutures(),
+                  builder: (context, _) => builder(context, ffParams),
+                )
+              : builder(context, ffParams);
+          final child = page;
 
-    pageBuilder: (context, state) {
-      fixStatusBarOniOS16AndBelow(context);
-      final ffParams = FFParameters(state, asyncParams);
-      final page = ffParams.hasFutures
-          ? FutureBuilder(
-              future: ffParams.completeFutures(),
-              builder: (context, _) => builder(context, ffParams),
-            )
-          : builder(context, ffParams);
-      final child = page;
-
-      final transitionInfo = state.transitionInfo;
-      return transitionInfo.hasTransition
-          ? CustomTransitionPage(
-              key: state.pageKey,
-              child: child,
-              transitionDuration: transitionInfo.duration,
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) =>
-                      PageTransition(
-                        type: transitionInfo.transitionType,
-                        duration: transitionInfo.duration,
-                        reverseDuration: transitionInfo.duration,
-                        alignment: transitionInfo.alignment,
-                        child: child,
-                      ).buildTransitions(
-                        context,
-                        animation,
-                        secondaryAnimation,
-                        child,
-                      ),
-            )
-          : MaterialPage(key: state.pageKey, child: child);
-    },
-    routes: routes,
-  );
+          final transitionInfo = state.transitionInfo;
+          return transitionInfo.hasTransition
+              ? CustomTransitionPage(
+                  key: state.pageKey,
+                  child: child,
+                  transitionDuration: transitionInfo.duration,
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          PageTransition(
+                    type: transitionInfo.transitionType,
+                    duration: transitionInfo.duration,
+                    reverseDuration: transitionInfo.duration,
+                    alignment: transitionInfo.alignment,
+                    child: child,
+                  ).buildTransitions(
+                    context,
+                    animation,
+                    secondaryAnimation,
+                    child,
+                  ),
+                )
+              : MaterialPage(key: state.pageKey, child: child);
+        },
+        routes: routes,
+      );
 }
 
 class TransitionInfo {
@@ -223,8 +236,10 @@ class RootPageContext {
         location != rootPageContext?.errorRoute;
   }
 
-  static Widget wrap(Widget child, {String? errorRoute}) =>
-      Provider.value(value: RootPageContext(true, errorRoute), child: child);
+  static Widget wrap(Widget child, {String? errorRoute}) => Provider.value(
+        value: RootPageContext(true, errorRoute),
+        child: child,
+      );
 }
 
 extension GoRouterLocationExtension on GoRouter {

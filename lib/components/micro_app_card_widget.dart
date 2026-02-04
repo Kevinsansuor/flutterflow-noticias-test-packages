@@ -48,7 +48,6 @@ class _MicroAppCardWidgetState extends State<MicroAppCardWidget> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Align(
@@ -57,7 +56,6 @@ class _MicroAppCardWidgetState extends State<MicroAppCardWidget> {
             padding: EdgeInsets.all(5.0),
             child: Container(
               width: MediaQuery.sizeOf(context).width * 1.0,
-
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Color(0xCF4B39EF), Color(0x70EE8B60)],
@@ -67,67 +65,51 @@ class _MicroAppCardWidgetState extends State<MicroAppCardWidget> {
                 ),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-
               child: Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                        0.0,
-                        0.0,
-                        0.0,
-                        10.0,
-                      ),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
-
                         decoration: BoxDecoration(),
-
                         child: Text(
                           valueOrDefault<String>(
                             widget!.cardFlutterTittle,
                             'Lorem ipsum dolor',
                           ),
-
-                          style: FlutterFlowTheme.of(context).headlineSmall
+                          style: FlutterFlowTheme.of(context)
+                              .headlineSmall
                               .override(
                                 font: GoogleFonts.interTight(
-                                  fontWeight: FlutterFlowTheme.of(
-                                    context,
-                                  ).headlineSmall.fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(
-                                    context,
-                                  ).headlineSmall.fontStyle,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .fontStyle,
                                 ),
-
                                 color: FlutterFlowTheme.of(context).alternate,
-
                                 letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(
-                                  context,
-                                ).headlineSmall.fontWeight,
-                                fontStyle: FlutterFlowTheme.of(
-                                  context,
-                                ).headlineSmall.fontStyle,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .headlineSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineSmall
+                                    .fontStyle,
                               ),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                        0.0,
-                        0.0,
-                        0.0,
-                        15.0,
-                      ),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 15.0),
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
-
                         decoration: BoxDecoration(),
-
                         child: Text(
                           valueOrDefault<String>(
                             widget!.cardFlutterDescription,
@@ -135,40 +117,39 @@ class _MicroAppCardWidgetState extends State<MicroAppCardWidget> {
                           ),
                           textAlign: TextAlign.start,
                           maxLines: 3,
-
-                          style: FlutterFlowTheme.of(context).bodySmall
-                              .override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FlutterFlowTheme.of(
-                                    context,
-                                  ).bodySmall.fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(
-                                    context,
-                                  ).bodySmall.fontStyle,
-                                ),
-
-                                color: FlutterFlowTheme.of(context).info,
-
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(
-                                  context,
-                                ).bodySmall.fontWeight,
-                                fontStyle: FlutterFlowTheme.of(
-                                  context,
-                                ).bodySmall.fontStyle,
-                              ),
+                          style:
+                              FlutterFlowTheme.of(context).bodySmall.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context).info,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodySmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodySmall
+                                        .fontStyle,
+                                  ),
                         ),
                       ),
                     ),
                     Container(
                       width: double.infinity,
                       height: 100.0,
-                      constraints: BoxConstraints(minHeight: 200.0),
+                      constraints: BoxConstraints(
+                        minHeight: 200.0,
+                      ),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
                             FlutterFlowTheme.of(context).alternate,
-                            FlutterFlowTheme.of(context).secondaryBackground,
+                            FlutterFlowTheme.of(context).secondaryBackground
                           ],
                           stops: [0.0, 1.0],
                           begin: AlignmentDirectional(0.0, -1.0),
@@ -176,7 +157,6 @@ class _MicroAppCardWidgetState extends State<MicroAppCardWidget> {
                         ),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
