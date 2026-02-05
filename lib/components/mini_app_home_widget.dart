@@ -59,8 +59,8 @@ class _MiniAppHomeWidgetState extends State<MiniAppHomeWidget> {
                   Padding(
                     padding: EdgeInsets.all(5.0),
                     child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                      onPressed: () async {
+                        await widget.onOracleTap?.call();
                       },
                       text: 'Go to the Oracle',
                       icon: Icon(
