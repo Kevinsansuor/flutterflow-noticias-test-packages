@@ -2,3 +2,5 @@
 export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
 export '/pages/ask_oracle_page/ask_oracle_page_widget.dart'
     show AskOraclePageWidget;
+// Export components
+export '/components/micro_app_card_widget.dart' show MicroAppCardWidget;
