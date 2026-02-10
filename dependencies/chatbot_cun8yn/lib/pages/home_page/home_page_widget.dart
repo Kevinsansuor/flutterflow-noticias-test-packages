@@ -71,7 +71,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           actions: [],
           flexibleSpace: FlexibleSpaceBar(
             title: Text(
@@ -541,6 +541,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
+                                        var _shouldSetState = false;
                                         _model
                                             .addToChatHistory(ChatMessageStruct(
                                           isUser: true,
@@ -561,6 +562,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                         );
 
+                                        _shouldSetState = true;
                                         if ((_model.apiResult?.succeeded ??
                                             true)) {
                                           _model.addToChatHistory(
@@ -573,6 +575,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             isUser: false,
                                           ));
                                           safeSetState(() {});
+                                          safeSetState(() {
+                                            _model.msgContentTextController
+                                                ?.clear();
+                                          });
                                         } else {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
@@ -592,14 +598,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       .secondary,
                                             ),
                                           );
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
+                                          return;
                                         }
 
-                                        safeSetState(() {
-                                          _model.msgContentTextController
-                                              ?.clear();
-                                        });
-
-                                        safeSetState(() {});
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                       },
                                       text: 'Enviar',
                                       icon: Icon(
