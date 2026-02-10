@@ -1,8 +1,10 @@
+import '/components/cookie_clicker_goto_widget.dart';
 import '/components/mini_app_home_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
+import '/components/simple_chat_goto_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -74,17 +76,42 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              wrapWithModel(
-                model: _model.miniAppHomeModel,
-                updateCallback: () => safeSetState(() {}),
-                child: MiniAppHomeWidget(
-                  onOracleTap: () async {},
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                wrapWithModel(
+                  model: _model.miniAppHomeModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: MiniAppHomeWidget(
+                    onOracleTap: () async {},
+                  ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Flexible(
+                        child: wrapWithModel(
+                          model: _model.simpleChatGotoModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: SimpleChatGotoWidget(),
+                        ),
+                      ),
+                      Flexible(
+                        child: wrapWithModel(
+                          model: _model.cookieClickerGotoModel,
+                          updateCallback: () => safeSetState(() {}),
+                          child: CookieClickerGotoWidget(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

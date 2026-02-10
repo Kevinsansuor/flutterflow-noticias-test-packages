@@ -5,14 +5,20 @@ import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
+import '/backend/schema/structs/index.dart';
+
 import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
+import 'package:ff_commons/flutter_flow/lat_lng.dart';
+import 'package:ff_commons/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'serialization_util.dart';
+import "package:chatbot_cun8yn/backend/schema/structs/index.dart"
+    as chatbot_cun8yn_data_schema;
 
 import '/index.dart';
+import 'package:cookie_clicker_ycf4xw/index.dart' as $cookie_clicker_ycf4xw;
+import 'package:chatbot_cun8yn/index.dart' as $chatbot_cun8yn;
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -35,30 +41,57 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
-GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
-      initialLocation: '/',
-      debugLogDiagnostics: true,
-      refreshListenable: appStateNotifier,
-      navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => HomePageWidget(),
-      routes: [
-        FFRoute(
-          name: '_initialize',
-          path: '/',
-          builder: (context, _) => HomePageWidget(),
-        ),
-        FFRoute(
-          name: HomePageWidget.routeName,
-          path: HomePageWidget.routePath,
-          builder: (context, params) => HomePageWidget(),
-        ),
-        FFRoute(
-          name: AskOraclePageWidget.routeName,
-          path: AskOraclePageWidget.routePath,
-          builder: (context, params) => AskOraclePageWidget(),
-        )
-      ].map((r) => r.toRoute(appStateNotifier)).toList(),
-    );
+GoRouter createRouter(AppStateNotifier appStateNotifier) {
+  $cookie_clicker_ycf4xw.initializeRoutes(
+    homePageWidgetName: 'cookie_clicker_ycf4xw.HomePage',
+    homePageWidgetPath: '/homePage_cookie-clicker-ycf4xw',
+  );
+
+  $chatbot_cun8yn.initializeRoutes(
+    homePageWidgetName: 'chatbot_cun8yn.HomePage',
+    homePageWidgetPath: '/homePage_chatbot-cun8yn',
+  );
+
+  return GoRouter(
+    initialLocation: '/',
+    debugLogDiagnostics: true,
+    refreshListenable: appStateNotifier,
+    navigatorKey: appNavigatorKey,
+    errorBuilder: (context, state) => HomePageWidget(),
+    routes: [
+      FFRoute(
+        name: '_initialize',
+        path: '/',
+        builder: (context, _) => HomePageWidget(),
+      ),
+      FFRoute(
+        name: HomePageWidget.routeName,
+        path: HomePageWidget.routePath,
+        builder: (context, params) => HomePageWidget(),
+      ),
+      FFRoute(
+        name: AskOraclePageWidget.routeName,
+        path: AskOraclePageWidget.routePath,
+        builder: (context, params) => AskOraclePageWidget(),
+      ),
+      FFRoute(
+        name: ErrorPageWidget.routeName,
+        path: ErrorPageWidget.routePath,
+        builder: (context, params) => ErrorPageWidget(),
+      ),
+      FFRoute(
+        name: $cookie_clicker_ycf4xw.HomePageWidget.routeName,
+        path: $cookie_clicker_ycf4xw.HomePageWidget.routePath,
+        builder: (context, params) => $cookie_clicker_ycf4xw.HomePageWidget(),
+      ),
+      FFRoute(
+        name: $chatbot_cun8yn.HomePageWidget.routeName,
+        path: $chatbot_cun8yn.HomePageWidget.routePath,
+        builder: (context, params) => $chatbot_cun8yn.HomePageWidget(),
+      )
+    ].map((r) => r.toRoute(appStateNotifier)).toList(),
+  );
+}
 
 extension NavParamExtensions on Map<String, String?> {
   Map<String, String> get withoutNulls => Map.fromEntries(
@@ -87,9 +120,19 @@ extension _GoRouterStateExtensions on GoRouterState {
     ..addAll(pathParameters)
     ..addAll(uri.queryParameters)
     ..addAll(extraMap);
-  TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
-      ? extraMap[kTransitionInfoKey] as TransitionInfo
-      : TransitionInfo.appDefault();
+  TransitionInfo get transitionInfo {
+    final possibleKeys = [
+      '__transition_info__',
+      '__transition_info__cookie_clicker_ycf4xw',
+      '__transition_info__chatbot_cun8yn'
+    ];
+    for (final key in possibleKeys) {
+      if (extraMap.containsKey(key)) {
+        return extraMap[key] as TransitionInfo;
+      }
+    }
+    return TransitionInfo.appDefault();
+  }
 }
 
 class FFParameters {
@@ -127,6 +170,7 @@ class FFParameters {
     String paramName,
     ParamType type, {
     bool isList = false,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -144,6 +188,7 @@ class FFParameters {
       param,
       type,
       isList,
+      structBuilder: structBuilder,
     );
   }
 }

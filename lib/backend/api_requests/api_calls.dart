@@ -1,11 +1,16 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import "package:chatbot_cun8yn/backend/schema/structs/index.dart"
+    as chatbot_cun8yn_data_schema;
+
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
-import 'api_manager.dart';
+import 'package:ff_commons/api_requests/api_manager.dart';
 
-export 'api_manager.dart' show ApiCallResponse;
+import 'package:ff_commons/api_requests/api_paging_params.dart';
+
+export 'package:ff_commons/api_requests/api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
@@ -38,22 +43,6 @@ class AskOracleCall {
         response,
         r'''$.image''',
       ));
-}
-
-class ApiPagingParams {
-  int nextPageNumber = 0;
-  int numItems = 0;
-  dynamic lastResponse;
-
-  ApiPagingParams({
-    required this.nextPageNumber,
-    required this.numItems,
-    required this.lastResponse,
-  });
-
-  @override
-  String toString() =>
-      'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
 }
 
 String _toEncodable(dynamic item) {
