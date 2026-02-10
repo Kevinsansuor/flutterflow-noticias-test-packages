@@ -6,3 +6,5 @@ export '/pages/error_page/error_page_widget.dart' show ErrorPageWidget;
 
 // Export components
 export 'components/micro_app_card_widget.dart' show MicroAppCardWidget;
+export 'components/cookie_clicker_goto_widget.dart' show CookieClickerGotoWidget;
+export 'components/simple_chat_goto_widget.dart' show SimpleChatGotoWidget;
