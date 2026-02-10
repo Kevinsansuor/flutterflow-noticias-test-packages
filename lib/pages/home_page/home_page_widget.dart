@@ -97,14 +97,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         child: wrapWithModel(
                           model: _model.simpleChatGotoModel,
                           updateCallback: () => safeSetState(() {}),
-                          child: SimpleChatGotoWidget(),
+                          child: SimpleChatGotoWidget(
+                            onChatBotTap: () async {},
+                          ),
                         ),
                       ),
                       Flexible(
                         child: wrapWithModel(
                           model: _model.cookieClickerGotoModel,
                           updateCallback: () => safeSetState(() {}),
-                          child: CookieClickerGotoWidget(),
+                          child: CookieClickerGotoWidget(
+                            onCookieClickerTap: () async {},
+                          ),
                         ),
                       ),
                     ],

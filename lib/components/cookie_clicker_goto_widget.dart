@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
-import 'package:cookie_clicker_ycf4xw/index.dart' as $cookie_clicker_ycf4xw;
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +9,12 @@ import 'cookie_clicker_goto_model.dart';
 export 'cookie_clicker_goto_model.dart';
 
 class CookieClickerGotoWidget extends StatefulWidget {
-  const CookieClickerGotoWidget({super.key});
+  const CookieClickerGotoWidget({
+    super.key,
+    required this.onCookieClickerTap,
+  });
+
+  final Future Function()? onCookieClickerTap;
 
   @override
   State<CookieClickerGotoWidget> createState() =>
@@ -49,7 +53,7 @@ class _CookieClickerGotoWidgetState extends State<CookieClickerGotoWidget> {
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
-          context.pushNamed($cookie_clicker_ycf4xw.HomePageWidget.routeName);
+          await widget.onCookieClickerTap?.call();
         },
         child: Container(
           width: 200.0,

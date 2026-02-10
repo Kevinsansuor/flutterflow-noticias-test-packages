@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
-import 'package:chatbot_cun8yn/index.dart' as $chatbot_cun8yn;
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +9,12 @@ import 'simple_chat_goto_model.dart';
 export 'simple_chat_goto_model.dart';
 
 class SimpleChatGotoWidget extends StatefulWidget {
-  const SimpleChatGotoWidget({super.key});
+  const SimpleChatGotoWidget({
+    super.key,
+    required this.onChatBotTap,
+  });
+
+  final Future Function()? onChatBotTap;
 
   @override
   State<SimpleChatGotoWidget> createState() => _SimpleChatGotoWidgetState();
@@ -48,7 +52,7 @@ class _SimpleChatGotoWidgetState extends State<SimpleChatGotoWidget> {
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
-          context.pushNamed($chatbot_cun8yn.HomePageWidget.routeName);
+          await widget.onChatBotTap?.call();
         },
         child: Container(
           width: 200.0,
