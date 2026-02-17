@@ -63,7 +63,7 @@ packages:
       path: "dependencies/chatbot_cun8yn"
       relative: true
     source: path
-    version: "0.0.2"
+    version: "0.0.5"
   clock:
     dependency: transitive
     description:

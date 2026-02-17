@@ -92,7 +92,7 @@ class _SimpleChatGotoWidgetState extends State<SimpleChatGotoWidget> {
                 Padding(
                   padding: EdgeInsets.all(5.0),
                   child: Text(
-                    'Chat Bot',
+                    'Niche Bot',
                     style: FlutterFlowTheme.of(context).titleMedium.override(
                           font: GoogleFonts.interTight(
                             fontWeight: FlutterFlowTheme.of(context)

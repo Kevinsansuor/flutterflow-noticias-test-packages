@@ -435,7 +435,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         decoration: InputDecoration(
                                           isDense: true,
                                           alignLabelWithHint: true,
-                                          hintText: 'Write your message!',
+                                          hintText: 'Write your message here!',
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelMedium
