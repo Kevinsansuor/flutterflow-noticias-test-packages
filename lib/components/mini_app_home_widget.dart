@@ -92,7 +92,7 @@ class _MiniAppHomeWidgetState extends State<MiniAppHomeWidget> {
                                           1.0,
                                       decoration: BoxDecoration(),
                                       child: Text(
-                                        'The Oracle',
+                                        'The Oracle Turttle',
                                         style: FlutterFlowTheme.of(context)
                                             .headlineSmall
                                             .override(
